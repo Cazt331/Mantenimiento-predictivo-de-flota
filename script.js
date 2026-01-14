@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const tirePressure = document.getElementById("tirePressure").value;
     const engineTemp = document.getElementById("engineTemp").value;
     const brakeFluid = document.getElementById("brakeFluid").value;
+    const batteryAge = document.getElementById("batteryAge").value;
+    const loadType = document.getElementById("loadType").value;
 
     // 2. Mostrar mensaje del usuario en el chat (Feedback visual)
     addMessage(
@@ -28,7 +30,9 @@ document.addEventListener("DOMContentLoaded", () => {
         driverReport,
         tirePressure,
         engineTemp,
-        brakeFluid
+        brakeFluid,
+        batteryAge,
+        loadType
       );
     }, 800);
   });
@@ -54,56 +58,62 @@ function analyzeRisk(
   report,
   tirePressure,
   engineTemp,
-  brakeFluid
+  brakeFluid,
+  batteryAge,
+  loadType
 ) {
   let riskLevel = "";
   let recommendation = "";
   let cssClass = "";
   let explanation = "";
+  let riskScore = 0;
 
-  // CASO ROJO: Falla crítica, Kilometraje excesivo (>15k) o Pérdida de potencia
-  if (
-    codes === "critical" ||
-    km > 15000 ||
-    report === "power_loss" ||
-    brakeFluid === "low" ||
-    engineTemp === "high"
-  ) {
+  // Sistema de Puntuación de Riesgo
+  if (codes === "critical") riskScore += 5;
+  if (km > 15000) riskScore += 5;
+  if (report === "power_loss") riskScore += 5;
+  if (brakeFluid === "low") riskScore += 5;
+  if (engineTemp === "high") riskScore += 5;
+
+  if (batteryAge === "old") riskScore += 3;
+  if (km > 10000 && km <= 15000) riskScore += 3; // Evitar doble conteo
+  if (codes === "warning") riskScore += 3;
+  if (report === "noise") riskScore += 3;
+
+  if (tirePressure !== "normal") riskScore += 2;
+  if (loadType === "heavy") riskScore += 2;
+
+  if (engineTemp === "low") riskScore += 1;
+  if (batteryAge === "medium") riskScore += 1;
+
+  // Clasificación basada en Puntuación
+  if (riskScore >= 10) {
     riskLevel = "RIESGO ALTO (CRÍTICO)";
     cssClass = "risk-red";
     recommendation = "⛔ DETENER UNIDAD. Programar entrada a taller inmediata.";
     explanation =
-      "Se detectaron una o más condiciones críticas que requieren atención inmediata.";
-  }
-  // CASO AMARILLO: Kilometraje medio (>10k), Advertencia menor o Ruidos
-  else if (
-    km > 10000 ||
-    codes === "warning" ||
-    report === "noise" ||
-    tirePressure !== "normal" ||
-    engineTemp === "low"
-  ) {
+      "El puntaje de riesgo acumulado es alto, indicando condiciones críticas que requieren atención inmediata.";
+  } else if (riskScore >= 5) {
     riskLevel = "RIESGO MEDIO (PREVENTIVO)";
     cssClass = "risk-yellow";
     recommendation =
-      "⚠️ PLANIFICAR REVISIÓN. Agendar mantenimiento en próximos 3 días.";
+      "⚠️ PLANIFICAR REVISIÓN. Agendar mantenimiento en próximos 3-5 días.";
     explanation =
-      "La unidad presenta desviaciones que podrían escalar a fallas mayores si no se atienden.";
-  }
-  // CASO VERDE: Todo en orden
-  else {
+      "El puntaje de riesgo es moderado. Se recomienda una revisión preventiva para evitar fallas mayores.";
+  } else {
     riskLevel = "BAJO RIESGO (OPERATIVO)";
     cssClass = "risk-green";
     recommendation = "✅ CONTINUAR OPERACIÓN. Unidad en condiciones óptimas.";
-    explanation = "Todos los parámetros están dentro de norma.";
+    explanation =
+      "El puntaje de riesgo es bajo. Todos los parámetros están dentro de un rango aceptable.";
   }
 
-  // Construir la respuesta HTML del bot con el semáforo y la acción sugerida [cite: 43, 44]
+  // Construir la respuesta HTML del bot con el semáforo y la acción sugerida
   const responseHTML = `
         <strong>Análisis para unidad ${id}:</strong><br>
         ${explanation}
         <div class="risk-card ${cssClass}">
-            ${riskLevel}
+            ${riskLevel} | Puntaje: ${riskScore}
         </div>
         <br>
         <strong>Acción Sugerida:</strong><br>
