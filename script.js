@@ -1,5 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("maintenanceForm");
+  const darkModeToggle = document.getElementById("darkModeToggle");
+  const body = document.body;
+
+  // Check for saved dark mode preference
+  if (localStorage.getItem("darkMode") === "enabled") {
+    body.classList.add("dark-mode");
+    darkModeToggle.textContent = "☀️";
+  }
+
+  darkModeToggle.addEventListener("click", () => {
+    body.classList.toggle("dark-mode");
+
+    // Save preference to localStorage
+    if (body.classList.contains("dark-mode")) {
+      localStorage.setItem("darkMode", "enabled");
+      darkModeToggle.textContent = "☀️";
+    } else {
+      localStorage.removeItem("darkMode");
+      darkModeToggle.textContent = "🌙";
+    }
+  });
 
   form.addEventListener("submit", function (e) {
     e.preventDefault(); // Evitar que la página se recargue
