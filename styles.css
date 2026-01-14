@@ -103,6 +103,7 @@ button:hover {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  max-height: 700px;
 }
 
 .message {
