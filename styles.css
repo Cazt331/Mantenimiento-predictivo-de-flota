@@ -1,0 +1,162 @@
+/* Configuración General */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  margin: 0;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.main-container {
+  background-color: white;
+  width: 900px;
+  height: auto;
+  display: flex;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Sección Izquierda: Formulario */
+.form-section {
+  width: 40%;
+  background-color: #2c3e50;
+  color: white;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form-section h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: #bdc3c7;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #e67e22;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 20px;
+  width: 100%;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #d35400;
+}
+
+/* Sección Derecha: Chatbot */
+.chat-section {
+  width: 60%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  background-color: #ecf0f1;
+}
+
+.subtitle {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+  margin: 5px 0 0 0;
+}
+
+.divider {
+  width: 100%;
+  border: 0;
+  border-top: 1px solid #bdc3c7;
+  margin: 10px 0;
+}
+
+.chat-window {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.message {
+  padding: 15px;
+  border-radius: 10px;
+  max-width: 80%;
+  line-height: 1.4;
+  animation: fadeIn 0.5s;
+}
+
+.bot-message {
+  background-color: white;
+  align-self: flex-start;
+  border-left: 5px solid #3498db;
+  color: #333;
+}
+
+.user-message {
+  background-color: #3498db;
+  color: white;
+  align-self: flex-end;
+}
+
+/* Semáforo de Riesgo - Estilos dinámicos */
+.risk-card {
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 10px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+
+.risk-red {
+  background-color: #e74c3c;
+  box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4);
+}
+.risk-yellow {
+  background-color: #f1c40f;
+  color: #333;
+  box-shadow: 0 4px 10px rgba(241, 196, 15, 0.4);
+}
+.risk-green {
+  background-color: #27ae60;
+  box-shadow: 0 4px 10px rgba(39, 174, 96, 0.4);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

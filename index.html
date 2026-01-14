@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agente de Mantenimiento de Flota - Eje 3</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="form-section">
+        <h2>📊 Datos de la Unidad</h2>
+        <form id="maintenanceForm">
+          <div class="input-group">
+            <label for="unitId">ID de Unidad / Placa</label>
+            <input type="text" id="unitId" placeholder="Ej. CAM-045" required />
+          </div>
+
+          <div class="input-group">
+            <label for="mileage">Km desde último servicio</label>
+            <input type="number" id="mileage" placeholder="Ej. 8500" required />
+          </div>
+
+          <div class="input-group">
+            <label for="faultCodes">Telemetría (Códigos de Falla)</label>
+            <select id="faultCodes">
+              <option value="none">Sin códigos</option>
+              <option value="warning">Advertencia (Sensores menores)</option>
+              <option value="critical">Crítico (Motor/Frenos/Aceite)</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label for="driverReport">Reporte de Conductor</label>
+            <select id="driverReport">
+              <option value="good">Normal</option>
+              <option value="noise">Ruidos extraños / Vibración</option>
+              <option value="power_loss">Pérdida de potencia</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label for="tirePressure">Presión de Neumáticos</label>
+            <select id="tirePressure">
+              <option value="normal">Normal</option>
+              <option value="low">Baja</option>
+              <option value="high">Alta</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label for="engineTemp">Temperatura del Motor</label>
+            <select id="engineTemp">
+              <option value="normal">Normal</option>
+              <option value="high">Alta</option>
+              <option value="low">Baja</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label for="brakeFluid">Nivel de Líquido de Frenos</label>
+            <select id="brakeFluid">
+              <option value="normal">Normal</option>
+              <option value="low">Bajo</option>
+            </select>
+          </div>
+
+          <button type="submit">Analizar Riesgo</button>
+        </form>
+      </div>
+
+      <div class="chat-section">
+        <div class="header">
+          <h3>🤖 FleetAI Agent</h3>
+          <p class="subtitle">Mantenimiento Predictivo Activo</p>
+        </div>
+        <hr class="divider" />
+
+        <div class="chat-window" id="chatWindow">
+          <div class="message bot-message">
+            Hola. Soy tu asistente de mantenimiento predictivo. Ingresa los
+            datos de la unidad a la izquierda para evaluar su riesgo mecánico.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
