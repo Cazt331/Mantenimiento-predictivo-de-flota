@@ -1,9 +1,6 @@
-// Esperar a que el DOM cargue completamente
 document.addEventListener("DOMContentLoaded", () => {
-  // Referencia al formulario
   const form = document.getElementById("maintenanceForm");
 
-  // Escuchar el evento 'submit' (cuando se presiona el botón)
   form.addEventListener("submit", function (e) {
     e.preventDefault(); // Evitar que la página se recargue
 
@@ -49,7 +46,7 @@ function addMessage(text, className) {
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
 
-// Lógica Principal: Evaluación de Reglas de Riesgo
+// Lógica Principal: Evaluación de Reglas de Riesgo se pueden añadir mas
 function analyzeRisk(
   id,
   km,
@@ -63,8 +60,6 @@ function analyzeRisk(
   let recommendation = "";
   let cssClass = "";
   let explanation = "";
-
-  // Reglas de decisión basadas en el PDF (Prioridad y Prevención) [cite: 27, 29]
 
   // CASO ROJO: Falla crítica, Kilometraje excesivo (>15k) o Pérdida de potencia
   if (
